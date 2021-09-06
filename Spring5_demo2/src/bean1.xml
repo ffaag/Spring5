@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="student" class="com.it.spring5.collectiontype.Student">
+        <!--数组类型属性的注入-->
+        <property name="course">
+            <array>
+                <value>java课程</value>
+                <value>python课程</value>
+            </array>
+        </property>
+        <!--list类型属性的注入-->
+        <property name="list">
+            <list>
+                <value>张三</value>
+            </list>
+        </property>
+        <!--map类型属性的注入-->
+        <property name="map">
+            <map>
+                <entry key="1" value="1.1"></entry>
+            </map>
+        </property>
+        <!--set类型属性的注入-->
+        <property name="sets">
+            <set>
+                <value>111</value>
+            </set>
+        </property>
+    </bean>
+
+
+    <!--list类型属性，但是里面放置的不是普通的类型数据，而是另一个类的对象类型-->
+    <bean id="course1" class="com.it.spring5.collectiontype.Course">
+        <property name="cname" value="11"></property>
+    </bean>
+    <bean id="course2" class="com.it.spring5.collectiontype.Course">
+        <property name="cname" value="11"></property>
+    </bean>
+    <bean id="student1" class="com.it.spring5.collectiontype.Student">
+        <property name="courseList">
+            <list>
+                <ref bean="course1"></ref>
+                <ref bean="course2"></ref>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--其中，这个课程list是可以单独拿出来的，这样其他地方要用到这个课程都可以直接使用-->
+    <!--这里我们在bean2中来设置，主要是会对前面的一大串要改改-->
+
+
+</beans>

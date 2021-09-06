@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--默认是单实例，即加载配置文件后，getBean获得的是同一个对象，可通过scope来设置为多实例-->
+    <bean id="myBean" class="com.it.spring5.factorybean.MyBean" scope="prototype">
+        <!--这里面还有属性init-method=""，destroy-method=""，可在对应的类中定义两个方法作为初始化和销毁的功能-->
+        <!--bean的生命周期：
+        1-通过无参构造创建Bean实例
+        2-调用set方法注入属性
+        3-调用初始化方法，需自行配置
+        4-bean可以使用了
+        5-调用销毁方法，自行配置，这里销毁是要自行调用的，为前面强转applicationContext.close()-->
+
+    </bean>
+
+    <!--bean的后置处理器：为前面的五步，但是还增加了两步
+    1-在3的前面增加一个把bean实例传递bean前置处理器的方法 postProcessBeforeInitialization
+    2-在3的后面增加一个把bean实例传递bean后置处理器的方法 postProcessAfterInitialization-->
+    <!--这里注意，bean对应的类是需要实现一个接口的，叫BeanPostProcessor，前面也有一个工厂Bean要实现一个接口-->
+    <bean id="myBeanPost" class="com.it.spring5.factorybean.MyBeanPost"></bean>
+
+</beans>

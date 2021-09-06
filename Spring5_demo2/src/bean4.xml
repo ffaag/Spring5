@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--实现自动装配，用属性autowire，常用两个值，很少使用，大都使用注解方式进行装配
+    1-byName，即通过对应的bean的名称注入，这里要求bean的id名称与类中的属性一模一样
+    2-byType，通过属性的类型装配注入-->
+    <bean id="dept" class="com.it.spring5.autowire.Dept"></bean>
+
+    <bean id="emp" class="com.it.spring5.autowire.Emp" autowire="byName"></bean>
+    <bean id="emp1" class="com.it.spring5.autowire.Emp" autowire="byType"></bean>
+
+
+    <!--引入外部文件，这样不用每次都自己写，或者改起来只要改一处，很方便，最常见的如数据库连接池配置-->
+    <!--直接配置连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/secondshop"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+
+    <!--使用配置文件，首先要编写配置文件，其次要增加context空间，然后在spring配置文件中引入外部属性文件-->
+    <!--1 引入外部属性文件-->
+    <context:property-placeholder location="jdbc.properties"></context:property-placeholder>
+    <!--读取外部属性文件的内容-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${prop.driverClassName}"></property>
+        <property name="url" value="${prop.url}"></property>
+        <property name="username" value="${prop.userName}"></property>
+        <property name="password" value="${prop.password}"></property>
+    </bean>
+</beans>

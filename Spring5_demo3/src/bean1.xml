@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--首先引入空间context，然后开启组件扫描，扫描多个包可以使用逗号隔开，或者直接扫描上一级，在里面的注解全部扫描
+        这个作用是扫描我们有哪些类有注解，这样有的直接进行创建对象-->
+    <context:component-scan base-package="com.it.spring5"></context:component-scan>
+    <!--这里注解需要写这个组件扫描，如果进行完全注解开发，则这个都不需要了，xml文件都不要了，但是需要创建配置类-->
+
+    <!--组件扫描细节配置-->
+    <!--示例 1  use-default-filters="false" 表示现在不使用默认 filter，自己配置 filter
+               配置方法 context:include-filter ，设置扫描哪些内容
+               expression="org.springframework.stereotype.Controller"代表只扫描包下面的controller注解-->
+
+    <context:component-scan base-package="com.it.spring5" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--示例 2      下面配置扫描包所有内容    context:exclude-filter： 设置哪些内容不进行扫描 -->
+
+    <context:component-scan base-package="com.it.spring5" use-default-filters="false">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+</beans>
